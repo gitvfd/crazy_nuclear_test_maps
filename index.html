@@ -134,9 +134,12 @@ h1 {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-geo-projection/0.2.15/d3.geo.projection.min.js"></script>
     <script type="text/javascript">
-      var width = 900;
-      var height = 600;
-      
+      var width = 560;
+      var height = 400;
+
+
+  //var margin = {top:0, left:35, bottom:40, right:5};      
+    
       //Quick fix for resizing some things for mobile-ish viewers
       var mobileScreen = ($( window ).innerWidth() < 500 ? true : false);
 
@@ -151,7 +154,7 @@ h1 {
                
 
       var projection = d3.geo.robinson()
-        .scale(150)
+        .scale(100)
         .translate([width / 2, height / 2])
         //.clipAngle(180 - 1e-3)
         .precision(.01);
@@ -159,6 +162,7 @@ h1 {
       var svg = d3.select("#chart").append("svg")
           .attr("width", width)
           .attr("height", height);
+
       var path = d3.geo.path()
           .projection(projection);
       var g = svg.append("g");
@@ -224,7 +228,7 @@ h1 {
                   .attr("cy", function(d) {
                     return projection([d.lon,d.lat])[1];
                   })
-                  .attr("r",function(j){ if (j.yea==1945) {return 2*rScale(j.value)} else {return 0.5*rScale(j.value)}})
+                  .attr("r",function(j){ if (j.yea==1945) {return 1*rScale(j.value)} else {return 0.5*rScale(j.value)}})
                   .style("fill", function(j){if (j.yea==1945) {return "red"} else {return "gold"}})
                   .style("opacity", function(j){if (j.yea==1945) {return 0.5} else {return 0.05}})
                   .transition().duration(300)
@@ -264,7 +268,7 @@ h1 {
                       .transition()
                       .delay(750*i)
                       .duration(100)
-                      .attr("r",function(j){ if (j.yea==yearTable[i]) {return 2*rScale(j.value)} else {return 0.5*rScale(j.value)}})
+                      .attr("r",function(j){ if (j.yea==yearTable[i]) {return 1*rScale(j.value)} else {return 0.5*rScale(j.value)}})
                       .style("fill", function(j){if (j.yea==yearTable[i]) {return "red"} else {return "gold"}})
                       .style("opacity", function(j){if (j.yea==yearTable[i]) {return 0.5} else {return 0.05}})
                       .transition().duration(300)
@@ -306,56 +310,56 @@ h1 {
             .text(titleName);
             
           wrapperVar.append("circle")
-                .attr('r', scale(legendSize1))
+                .attr('r', 0.5*scale(legendSize1))
                 .attr('class',"legendCircle")
                 .attr('cx', legendCenter)
-                .attr('cy', (legendBottom-scale(legendSize1)));
+                .attr('cy', (legendBottom-0.5*scale(legendSize1)));
             wrapperVar.append("circle")
-                .attr('r', scale(legendSize2))
+                .attr('r', 0.5*scale(legendSize2))
                 .attr('class',"legendCircle")
                 .attr('cx', legendCenter)
-                .attr('cy', (legendBottom-scale(legendSize2)));
+                .attr('cy', (legendBottom-0.5*scale(legendSize2)));
             wrapperVar.append("circle")
-                .attr('r', scale(legendSize3))
+                .attr('r', 0.5*scale(legendSize3))
                 .attr('class',"legendCircle")
                 .attr('cx', legendCenter)
-                .attr('cy', (legendBottom-scale(legendSize3)));
+                .attr('cy', (legendBottom-0.5*scale(legendSize3)));
             
           wrapperVar.append("line")
                 .attr('class',"legendLine")
                 .attr('x1', legendCenter)
-                .attr('y1', (legendBottom-2*scale(legendSize1)))
+                .attr('y1', (legendBottom-1*scale(legendSize1)))
             .attr('x2', (legendCenter + legendLineLength))
-                .attr('y2', (legendBottom-2*scale(legendSize1))); 
+                .attr('y2', (legendBottom-1*scale(legendSize1))); 
           wrapperVar.append("line")
                 .attr('class',"legendLine")
                 .attr('x1', legendCenter)
-                .attr('y1', (legendBottom-2*scale(legendSize2)))
+                .attr('y1', (legendBottom-1*scale(legendSize2)))
             .attr('x2', (legendCenter + legendLineLength))
-                .attr('y2', (legendBottom-2*scale(legendSize2)));
+                .attr('y2', (legendBottom-1*scale(legendSize2)));
           wrapperVar.append("line")
                 .attr('class',"legendLine")
                 .attr('x1', legendCenter)
-                .attr('y1', (legendBottom-2*scale(legendSize3)))
+                .attr('y1', (legendBottom-1*scale(legendSize3)))
             .attr('x2', (legendCenter + legendLineLength))
-                .attr('y2', (legendBottom-2*scale(legendSize3)));
+                .attr('y2', (legendBottom-1*scale(legendSize3)));
             
           wrapperVar.append("text")
                 .attr('class',"legendText")
                 .attr('x', (legendCenter + legendLineLength + textPadding))
-                .attr('y', (legendBottom-2*scale(legendSize1)))
+                .attr('y', (legendBottom-1*scale(legendSize1)))
             .attr('dy', '0.25em')
             .text( numFormat(Math.round(legendSize1)) + " kt");
           wrapperVar.append("text")
                 .attr('class',"legendText")
                 .attr('x', (legendCenter + legendLineLength + textPadding))
-                .attr('y', (legendBottom-2*scale(legendSize2)))
+                .attr('y', (legendBottom-1*scale(legendSize2)))
             .attr('dy', '0.25em')
             .text( numFormat(Math.round(legendSize2)) + " kt");
           wrapperVar.append("text")
                 .attr('class',"legendText")
                 .attr('x', (legendCenter + legendLineLength + textPadding))
-                .attr('y', (legendBottom-2*scale(legendSize3)))
+                .attr('y', (legendBottom-1*scale(legendSize3)))
             .attr('dy', '0.25em')
             .text( numFormat(Math.round(legendSize3)) + " kt");
             
